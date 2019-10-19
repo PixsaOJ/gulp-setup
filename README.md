@@ -2,8 +2,9 @@
 
 ### Todo
 
-`
-npm install
+`npm install gulp-cli -g`
 
-gulp
+`npm install`
+
+`gulp`
 `
