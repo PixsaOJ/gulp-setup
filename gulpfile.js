@@ -3,6 +3,8 @@ const cssMin = require('gulp-css');
 const uglify = require('gulp-uglify');
 const concat = require('gulp-concat');
 const babel = require('gulp-babel');
+const browserSync = require('browser-sync').create();
+
 
 function html() {
     return src('src/index.html')
@@ -26,7 +28,26 @@ function js() {
         .pipe(dest('build/js', { sourcemaps: false }))
 }
 
+function watchSync() {
+    browserSync.init({
+        server: {
+            baseDir: "./build"
+        }
+    });
+
+    watch("src/css/*.css", css);
+    watch("src/js/*.js").on("change", () => {
+        js()
+        browserSync.reload()
+    });
+    watch("src/*.html").on("change", () => {
+        html()
+        browserSync.reload()
+    });
+}
+
 exports.js = js;
 exports.css = css;
 exports.html = html;
+exports.watch = watchSync;
 exports.default = parallel(html, css, js);

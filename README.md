@@ -7,3 +7,6 @@
 `npm install`
 
 `gulp`
+
+#### To run with browserSync
+`gulp watch`
